@@ -1,6 +1,11 @@
 const express = require('express')
 const app = express()
 const Question = require('./db')
+const compiler = require('compilex')
+const options = { stats: true }
+
+compiler.init(options)
+
 
 const cors = require('cors')
 app.use(cors())
@@ -39,12 +44,52 @@ app.get('/questions', async (req, res) => {
     try {
         const questions = await Question.find({})
         res.send(questions).status(200)
+
     }
     catch (e) {
         res.send(e).status(400)
     }
 })
 
+
+app.get('/question/:id', async (req, res) => {
+    const id = req.params.id
+    try {
+        const ques = await Question.findById(id)
+        console.log(ques)
+        res.send(ques).status(200)
+
+    } catch (e) {
+        console.log(e)
+    }
+})
+
+
+app.post('/compilecode', async (req, res) => {
+    const code = req.body.code;
+    let envData = { OS: "windows", cmd: "g++" };
+    const inputData = req.body.input;
+    if (inputData.length <= 0) {
+        compiler.compileCPP(envData, code, function (data) {
+            if (data.error) {
+                res.send(data.error).status(400)
+            } else {
+                res.send(data.output).status(200)
+            }
+        }
+        )
+    }
+    else{
+        compiler.compileCPPWithInput(envData, code, inputData, function (data) {
+            if (data.error) {
+                res.send(data.error).status(400)
+            } else {
+                res.send(data.output).status(200)
+            }
+        }
+        )
+    }
+})
 
 
 app.listen(port, () => {

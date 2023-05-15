@@ -9,7 +9,7 @@ const questionSchema = new mongoose.Schema({
     is_submitted: Boolean,
 },
 {
-    collection: ''
+    // collection: 'CodeHaven'
 })
 
 const Question = mongoose.model('Question', questionSchema)

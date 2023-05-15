@@ -6,25 +6,18 @@ import auth from '../firebase'
 import axios from 'axios'
 
 import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 const Coding = () => {
-    const [questions2, setQuestions2] = useState([])
-    console.log(questions2)
+    const { id } = useParams();
+    const [questionData, setQuestionData] = useState([])
     useEffect(() => {
-        const loadQuestionsinCodingpage = async () => {
-            const response = await axios.get('http://localhost:5000/questions').then((response) => {
-                console.log(response.data)
-                setQuestions2(response.data)
-            }
-            ).catch((error) => {
-                console.log(error)
-            }
-            )
-
+        const loadQuestionData = async () => {
+            const data = await axios.get('http://localhost:5000/question/' + id)
+            // console.log(data.data)
+            setQuestionData(data.data)
         }
-
-        loadQuestionsinCodingpage()
+        loadQuestionData()
     }, [])
     const localUser = localStorage.getItem('codeHavenUser')
     const localUserEmail = localStorage.getItem('codeHavenUserEmail')
@@ -32,9 +25,11 @@ const Coding = () => {
     if (localUser) {
         return <>
             <NavBarTest user={user} />
-            <FlowSideBar  questions={questions2} />
-            
-            <FlowButtons />
+            {/* <div className="flex flex-col">
+                <span>{questionData?._id}</span>
+                <span>{questionData?.question_title}</span>
+            </div> */}
+            <FlowSideBar question={questionData} />
         </>
     }
     else {

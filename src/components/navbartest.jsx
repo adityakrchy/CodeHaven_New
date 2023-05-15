@@ -24,9 +24,9 @@ const NavBarTest = ({ user }) => {
 
             <nav className="bg-gray-800 border-gray-200 dark:bg-gray-900">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="https://flowbite.com/" className="flex items-center">
+                    <Link to="/dashboard" className="flex items-center">
                         <img src="/logo_bg_removed.png" className="h-8 mr-3" alt="Flowbite Logo" />
-                    </a>
+                    </Link>
                     <div className="flex items-center md:order-2">
 
                         <Dropdown

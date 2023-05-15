@@ -5,6 +5,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 const QuestionsList = () => {
+    
     useEffect(() => {
         const loadQuestions = async () => {
             const response = await axios.get('http://localhost:5000/questions').then((response) => {
@@ -22,6 +23,15 @@ const QuestionsList = () => {
     }, [])
 
     const [questions, setQuestions] = useState([])
+    const handleQuestionRender = async (id) => {
+        try {
+            const response = await axios.post(`http://localhost:5000/question/${id}`)
+            // console.log(response.data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <>
             <NavBarTest />
@@ -33,7 +43,7 @@ const QuestionsList = () => {
                             <div className="flex items-center space-x-4">
 
                                 <div className="flex-1 min-w-0">
-                                    <Link to="/codingplatform">
+                                    <Link onClick={handleQuestionRender(question._id)} to={`/codingplatform/${question._id}`}>
                                         <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
                                             {question.question_title}
                                         </p>

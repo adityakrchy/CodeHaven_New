@@ -6,20 +6,27 @@ import Signup from './Signup'
 import { AuthProvider } from './AuthContext'
 import Dashboard from './Dashboard'
 import QuestionsList from './components/QuestionsList'
+import { Toaster } from 'react-hot-toast'
+import ColabHome from './components/Collab/ColabHome'
+import EditorPage from './components/Collab/EditorPage'
+import LandingPage from './LandingPage'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
       <AuthProvider>
+        <div><Toaster /></div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Coding />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/questionslist' element={<QuestionsList />} />
-            <Route path='/codingplatform' element={<Coding />} />
+            <Route path='/codingplatform/:id' element={<Coding />} />
+            <Route path='/colabtogether' element={<ColabHome />} />
+            <Route path="/editor/:roomId" element={<EditorPage />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

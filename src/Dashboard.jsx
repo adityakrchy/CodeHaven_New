@@ -4,7 +4,7 @@ import React from 'react'
 import code from './assets/code_1.png';
 import editor from './assets/editor_1.png';
 import remote from './assets/remote_1.png';
-import { Dropdown } from 'flowbite-react';
+import { Dropdown, Sidebar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
 
 
@@ -16,29 +16,30 @@ const Dashboard = () => {
                 {/* <!-- Sidebar --> */}
                 <aside className="w-64 h-full border-r-2 bg-gray-800">
                     <header className="px-6 py-4">
-                        <a href="https://flowbite.com/" className="flex items-center">
+                        <Link to="https://flowbite.com/" className="flex items-center">
                             <img src="/logo_bg_removed.png" className="h-8 mr-3" alt="Flowbite Logo" />
-                        </a>
+                        </Link>
                     </header>
 
                     <ul className="mt-4 ">
-                        <li className="px-6 py-2 hover:bg-gray-100|text-gray-900  ">
-                            <a href="#" className=" font-medium group-hover:text-gray-900"><span>Home</span></a>
+                        <li className="px-6 py-2 hover:bg-gray-100 hover:text-gray-900  ">
+                            <Link to="#" className=" font-medium group-hover:text-gray-900"><span>Home</span></Link>
                         </li>
-                        <li className="px-6 py-2 hover:bg-gray-100 text-gray-900">
-                            <a href="#" className="text-white font-medium hover:text-gray-900">Practice Coding</a>
+                        <li className="px-6 py-2 hover:bg-gray-100 hover:text-gray-900  ">
+                            <Link to="/questionslist" className="font-medium group-hover:text-gray-900">Practice Coding</Link>
                         </li>
-                        <li className="px-6 py-2 hover:bg-gray-100 text-gray-900">
-                            <a href="#" className="text-white font-medium hover:text-gray-900">Online IDE</a>
+                        <li className="px-6 py-2 hover:bg-gray-100 hover:text-gray-900  ">
+                            <Link to="#" className="font-medium group-hover:text-gray-900">Online IDE</Link>
                         </li>
-                        <li className="px-6 py-2 hover:bg-gray-100 text-gray-900">
-                            <a href="#" className="text-white font-medium hover:text-gray-900">Remote IDE</a>
+                        <li className="px-6 py-2 hover:bg-gray-100 hover:text-gray-900  ">
+                            <Link to="#" className="font-medium group-hover:text-gray-900">Remote IDE</Link>
                         </li>
 
-                        <li className="px-6 py-2 hover:bg-gray-100">
-                            <a href="#" className="text-white font-medium hover:text-gray-900">Settings</a>
+                        <li className="px-6 py-2 hover:bg-gray-100 hover:text-gray-900  ">
+                            <Link to="#" className="font-medium group-hover:text-gray-900">Settings</Link>
                         </li>
                     </ul>
+
                 </aside>
 
                 {/* <!-- Content --> */}
@@ -99,24 +100,65 @@ const Dashboard = () => {
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Master your programming skills and reach new levels of expertise with consistent practice</p>
                                 </div>
                             </Link>
-                            <a href="onlineide" className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <Link to="onlineide" className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={editor} alt="" />
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Online IDE</h5>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Empowering you to write, test, and run your code from a browser-based environment with easy access to a variety of tools and resources.</p>
                                 </div>
-                            </a>
-                            <a href="/remoteide" className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            </Link>
+                            <Link to="/colabtogether" className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={remote} alt="" />
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Colab Together</h5>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Leverage the power of teamwork and real-time collaboration to bring your coding project to the next level and drive innovation forward.</p>
                                 </div>
-                            </a>
+                            </Link>
 
                         </div>
 
                     </main>
+                    {/* <div class="flex flex-wrap justify-center">
+
+                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full m-6 overflow-hidden sm:w-52">
+
+                            <img src={code} alt="" class="h-full m-6" />
+
+                            <h2 class="text-center px-2 pb-5">Practice Coding</h2>
+
+                            <a href="#" class="bg-blue-500 text-white p-3 text-center hover:bg-blue-800 transition-all duration-500">Practice Coding</a>
+
+                        </div>
+
+
+
+                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full m-6 overflow-hidden sm:w-52">
+
+                            <img src={editor} alt="" class="h-full m-6" />
+
+                            <h2 class="text-center px-2 pb-5">Online IDE</h2>
+
+                            <a href="#" class="bg-blue-500 text-white p-3 text-center hover:bg-blue-800 transition-all duration-500">Online IDE</a>
+
+                        </div>
+
+
+
+                        <div class="flex flex-col bg-white rounded-lg shadow-md w-full m-6 overflow-hidden sm:w-52">
+
+                            <img src={remote} alt="" class="h-full m-6" />
+
+                            <h2 class="text-center px-2 pb-5">Colab Together</h2>
+
+                            <a href="#" class="bg-blue-500 text-white p-3 text-center hover:bg-blue-800 transition-all duration-500">Colab Together</a>
+
+                        </div>
+
+
+
+                        
+
+                    </div> */}
                 </div>
             </div>
 
