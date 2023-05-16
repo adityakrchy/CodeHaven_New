@@ -33,6 +33,23 @@ io.on('connection', (socket)=>{
         
     })
 
+    socket.on('code-change', ({roomId, value})=>{
+        console.log("code change", value);
+        io.to(roomId).emit('code-change', {value});
+    })
+
+    socket.on('disconnecting', ()=>{
+        const rooms = [...socket.rooms];
+        rooms.forEach((roomId)=>{
+            socket.in(roomId).emit('disconnected', {
+                socketId: socket.id,
+                username: userSocketMap[socket.id]
+            });
+        })
+        delete userSocketMap[socket.id];
+        socket.leave();
+    })
+
 })
 
 server.listen(5001, () => {
