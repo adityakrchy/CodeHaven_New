@@ -8,38 +8,37 @@ import { initSocket } from '../../socket';
 
 
 const Editor = () => {
-    const editorRef = useRef(null);
-    const socketRef = useRef(null);
-    const { roomId } = useParams();
-    const handleChange = (editor, data, value) => {
-        // editorRef.current = editor;
-        setValue(editor);
-        // console.log(data)
-        // console.log(editor);
-    };
     const [value, setValue] = useState("");
     useEffect(() => {
         const init = async () => {
             socketRef.current = await initSocket();
-            socketRef.current.emit('code-change', {
-                roomId,
-                value
-            })
-
-
         }
 
         init();
 
     }, [])
+    const [temp, setTemp] = useState(null)
+    const editorRef = useRef(null);
+    const socketRef = useRef(null);
+    const { roomId } = useParams();
+    const handleChange = (editor, data, value) => {
+        setValue(editor);
+        console.log("sending", editor)
+        socketRef.current.emit('code-change', {
+            roomId,
+            editor
+        })
+    };
+
 
     useEffect(() => {
         if (socketRef.current) {
             socketRef.current.on('code-change', ({ value }) => {
-                console.log("receiving", value)
-                if (value !== null) {
-                    editorRef.current.editor.setValue(value);
-                }
+                setTemp(value);
+                console.log("receiving", temp)
+                // if (value !== null) {
+                //     editorRef.current.editor.setValue(value);
+                // }
             })
         }
     }, [socketRef.current])

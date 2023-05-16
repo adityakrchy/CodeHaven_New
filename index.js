@@ -33,9 +33,9 @@ io.on('connection', (socket)=>{
         
     })
 
-    socket.on('code-change', ({roomId, value})=>{
-        console.log("code change", value);
-        io.to(roomId).emit('code-change', {value});
+    socket.on('code-change', ({roomId, editor})=>{
+        console.log(editor);
+        io.to(roomId).emit('code-change', {editor});
     })
 
     socket.on('disconnecting', ()=>{
