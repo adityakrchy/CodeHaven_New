@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import ColabHome from './components/Collab/ColabHome'
 import EditorPage from './components/Collab/EditorPage'
 import LandingPage from './LandingPage'
+import IDEHome from './components/onlineide/IDEHome'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/codingplatform/:id' element={<Coding />} />
             <Route path='/colabtogether' element={<ColabHome />} />
             <Route path="/editor/:roomId" element={<EditorPage />} />
+            <Route path='/onlineide' element={<IDEHome />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

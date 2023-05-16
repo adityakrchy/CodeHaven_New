@@ -26,17 +26,31 @@ const EditorPage = () => {
                 reactNavigator('/dashboard');
             }
             socketRef.current.emit('join', roomId, username);
-            socketRef.current.on('joined', ({clients, username, socketId})=>{
-                if(username !== locationn.state?.username){
+            socketRef.current.on('joined', ({ clients, username, socketId }) => {
+                if (username !== locationn.state?.username) {
                     toast.success(`${username} joined the room`);
                     console.log(`${username} joined`);
                 }
                 setClients(clients);
             })
 
+            // listening for disconnected
+            socketRef.current.on('disconnected', ({ socketId, username }) => {
+                toast.success(`${username} left the room`);
+                setClients((prev) => {
+                    return prev.filter(client => client.socketId !== socketId);
+                })
+
+            })
+
 
         }
-        init()
+        init();
+        return () => {
+            socketRef.current.off('joined');
+            socketRef.current.off('disconnected');
+            socketRef.current.disconnect();
+        }
     }, [])
     // useEffect(() => {
     //     const init = async () => {

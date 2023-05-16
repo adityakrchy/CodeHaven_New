@@ -67,27 +67,54 @@ app.get('/question/:id', async (req, res) => {
 
 app.post('/compilecode', async (req, res) => {
     const code = req.body.code;
-    let envData = { OS: "windows", cmd: "g++" };
-    const inputData = req.body.input;
-    if (inputData.length <= 0) {
-        compiler.compileCPP(envData, code, function (data) {
-            if (data.error) {
-                res.send(data.error).status(400)
-            } else {
-                res.send(data.output).status(200)
+    const language = req.body.language;
+    console.log(language)
+    if (language === "cpp") {
+        let envData = { OS: "windows", cmd: "g++" };
+        const inputData = req.body.input;
+        if (inputData.length <= 0) {
+            compiler.compileCPP(envData, code, function (data) {
+                if (data.error) {
+                    res.send(data.error).status(400)
+                } else {
+                    res.send(data.output).status(200)
+                }
             }
+            )
         }
-        )
-    }
-    else{
-        compiler.compileCPPWithInput(envData, code, inputData, function (data) {
-            if (data.error) {
-                res.send(data.error).status(400)
-            } else {
-                res.send(data.output).status(200)
+        else {
+            compiler.compileCPPWithInput(envData, code, inputData, function (data) {
+                if (data.error) {
+                    res.send(data.error).status(400)
+                } else {
+                    res.send(data.output).status(200)
+                }
             }
+            )
         }
-        )
+    } else if (language == "python") {
+        let envData = { OS: "windows", cmd: "python" };
+        const inputData = req.body.input;
+        if (inputData.length <= 0) {
+            compiler.compilePython(envData, code, function (data) {
+                if (data.error) {
+                    res.send(data.error).status(400)
+                } else {
+                    res.send(data.output).status(200)
+                }
+            }
+            )
+        }
+        else {
+            compiler.compilePythonWithInput(envData, code, inputData, function (data) {
+                if (data.error) {
+                    res.send(data.error).status(400)
+                } else {
+                    res.send(data.output).status(200)
+                }
+            }
+            )
+        }
     }
 })
 
